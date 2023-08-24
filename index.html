@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Rock Paper Scissors!</title>
+    <meta charset="utf-8">
+    <style>
+      body {
+        background-color: orange;
+        align-items: center;
+      }
+      .bg {
+        width: 500px;
+        height: 600px;
+        display: flex;
+        position: absolute;
+        justify-content: center;
+        text-align: center;
+        background-color: aquamarine;
+        left: 35%;
+        top: 15%;
+      }
+      #title {
+        text-align: center;
+        font-family: Verdana, Tahoma, sans-serif;
+      }
+      button {
+        color: rgb(0, 0, 0);
+        background-color: goldenrod;
+        border-color: black;
+        border-radius: 5px;
+        font-size: 15px;
+      }
+      label {
+        left: 300px;
+      }
+    </style>
+    <style id="style">
+      #over {
+        visibility: hidden;
+      }
+    </style>
+    <style id="rs">
+        #reset{
+        visibility: hidden;
+      }
+    </style>
+    <script type="text/javascript">
+      var pcscore = 0;
+      var p1score = 0;
+      var maxsc = 5;
+      var val=new Array(3);
+      val[0]="Rock";
+      val[1]="Paper";
+      val[2]="Scissors";
+      function max() {
+        maxsc = parseInt(window.prompt("Enter maximum score to win:"));
+      }
+      function func() {
+        return Math.floor(Math.random() * 3) + 1;
+      }
+      function resetgame(){
+        pcscore = 0;
+        p1score = 0;
+        document.getElementById('style').innerHTML = "#over{visibility:hidden;}";
+        document.getElementById('rs').innerHTML = "#reset{visibility:hidden;}";
+        document.getElementById('pc').innerHTML = "Computer:0";
+        document.getElementById('pl').innerHTML = "Player:0";
+        document.getElementById('temp').innerHTML = "";
+        document.getElementById('disp').innerHTML ="";
+        document.getElementById('rock').disabled = false;
+        document.getElementById('paper').disabled = false;
+        document.getElementById('scissors').disabled = false;
+        max();
+      }
+      function comp(userin) {
+        var roll = func();
+        if (roll == userin) {   
+            document.getElementById('disp').innerHTML ="You and me both rolled "+val[roll-1]+"! Roll again!!";
+        }
+        else if (roll==1&&userin==3||roll==2&&userin==1||roll==3&&userin==2) {
+          pcscore = pcscore + 1;
+          document.getElementById('pc').innerHTML = "Computer:" + pcscore;
+          document.getElementById('disp').innerHTML ="You rolled "+val[userin-1]+" and I rolled "+val[roll-1]+"! Lucky me :)";
+        }
+        else{
+          p1score = p1score + 1;
+          document.getElementById('pl').innerHTML = "Player:" + p1score;
+          document.getElementById('disp').innerHTML ="You rolled "+val[userin-1]+" and I rolled "+val[roll-1]+"! Lucky you :o";
+        }
+
+        if (p1score == maxsc) {
+          document.getElementById('style').innerHTML = "#over{content-visibility:visible;}"
+          document.getElementById('rs').innerHTML = "#reset{content-visibility:visible;}"
+          document.getElementById('temp').innerHTML = "<img src='https://media.tenor.com/W6jhICFvD1oAAAAC/win-victory.gif'>";
+          document.getElementById('rock').disabled = true;
+          document.getElementById('paper').disabled = true;
+          document.getElementById('scissors').disabled = true;
+        }
+        if (pcscore == maxsc) {
+          document.getElementById('style').innerHTML = "#over{content-visibility:visible;}"
+          document.getElementById('rs').innerHTML = "#reset{content-visibility:visible;}"
+          document.getElementById('temp').innerHTML = "<img src='https://media4.giphy.com/media/eJ4j2VnYOZU8qJU3Py/giphy.gif'>";
+          document.getElementById('rock').disabled = true;
+          document.getElementById('paper').disabled = true;
+          document.getElementById('scissors').disabled = true;
+        }
+      }
+      window.addEventListener("load", max);
+    </script>
+  </head>
+  <body>
+    <h1 id="title">Rock,Paper,Scissors!</h1>
+    <div class="bg">
+      <div class="play">
+        <h1 id="over">GAME OVER!</h1>
+        <h4 id="pl">Player:0</h4><h4 id="pc">Computer:0</h4>
+        <button id="rock" onclick="comp(1)">Rock</button>
+        <button id="paper" onclick="comp(2)">Paper</button>
+        <button id="scissors" onclick="comp(3)">Scissors</button>
+        <br><br>
+        <label id="disp"></label>
+        <br><br>
+        <label id="temp"></label>
+        <br><br>
+        <button id="reset" onclick="resetgame()">Play Again</button>
+        </div></div>
+    </body>
+</html>
